@@ -1,0 +1,43 @@
+{
+  "name": "schoolify",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "node_modules/node/bin/node node_modules/next/dist/bin/next dev --webpack --hostname 127.0.0.1",
+    "build": "node_modules/node/bin/node node_modules/next/dist/bin/next build --webpack",
+    "typecheck": "tsc --noEmit",
+    "test": "node_modules/node/bin/node node_modules/vitest/vitest.mjs run",
+    "preview": "serve out -l 3000",
+    "lint": "node_modules/node/bin/node node_modules/eslint/bin/eslint.js ."
+  },
+  "dependencies": {
+    "@fontsource/inter": "^5.2.0",
+    "@radix-ui/react-dialog": "^1.1.0",
+    "@radix-ui/react-slot": "^1.1.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
+    "jspdf": "^4.2.1",
+    "lucide-react": "^0.468.0",
+    "motion": "^12.0.0",
+    "next": "^16.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "recharts": "^3.0.0",
+    "tailwind-merge": "^3.0.0",
+    "zustand": "^5.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.4.6",
+    "node": "^22.23.5",
+    "serve": "^14.2.0",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.7.0",
+    "vitest": "^4.1.12"
+  }
+}

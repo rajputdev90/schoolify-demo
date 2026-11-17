@@ -1,0 +1,113 @@
+import type { SchoolState } from "./types";
+export const subjects = ["Mathematics", "Science", "English", "Social Science", "Hindi", "Computer Science"];
+export const subjectColors: Record<string, string> = { Mathematics: "violet", Science: "mint", English: "peach", "Social Science": "blue", Hindi: "rose", "Computer Science": "blue" };
+export const timetable = [
+  { time: "08:15", end: "09:00", subject: "Mathematics", teacherId: "t1", room: "Room 204", topic: "Quadratic equations" },
+  { time: "09:00", end: "09:45", subject: "Science", teacherId: "t2", room: "Science lab", topic: "Light & reflection" },
+  { time: "09:45", end: "10:00", subject: "Morning break", teacherId: "", room: "Courtyard", topic: "Take a little breather" },
+  { time: "10:00", end: "10:45", subject: "English", teacherId: "t3", room: "Room 204", topic: "The making of a scientist" },
+  { time: "10:45", end: "11:30", subject: "Social Science", teacherId: "t4", room: "Room 204", topic: "Resources & development" },
+  { time: "11:30", end: "12:15", subject: "Hindi", teacherId: "t5", room: "Room 204", topic: "Poetry workshop" },
+  { time: "12:15", end: "13:00", subject: "Lunch break", teacherId: "", room: "Dining hall", topic: "Recharge for the afternoon" },
+  { time: "13:00", end: "13:45", subject: "Computer Science", teacherId: "t2", room: "Computer lab", topic: "Introduction to Python" },
+];
+const students = [
+  { id: "s1", name: "Aanya Sharma", alias: "Curious Comet", sectionId: "10a", house: "Cedar", roll: 3, xp: 1240, streak: 7 },
+  { id: "s2", name: "Vihaan Sharma", alias: "Bright Fox", sectionId: "8b", house: "Cedar", roll: 21, xp: 680, streak: 4 },
+  { id: "s3", name: "Arjun Mehta", alias: "Orbit Owl", sectionId: "10a", house: "Oak", roll: 5, xp: 1380, streak: 9 },
+  { id: "s4", name: "Ishita Rao", alias: "Pixel Panda", sectionId: "10a", house: "Maple", roll: 11, xp: 1160, streak: 5 },
+  { id: "s5", name: "Kabir Shah", alias: "Cosmic Koala", sectionId: "10a", house: "Cedar", roll: 14, xp: 980, streak: 3 },
+  { id: "s6", name: "Meera Iyer", alias: "Sunny Sparrow", sectionId: "10b", house: "Oak", roll: 18, xp: 1420, streak: 8 },
+  { id: "s7", name: "Reyansh Das", alias: "Swift Star", sectionId: "9a", house: "Maple", roll: 19, xp: 820, streak: 4 },
+  { id: "s8", name: "Zoya Khan", alias: "Clever Cloud", sectionId: "8b", house: "Oak", roll: 25, xp: 1050, streak: 6 },
+];
+export function createSeed(): SchoolState {
+  return {
+    schema: 1,
+    accounts: [
+      { id: "a1", name: "Aanya Sharma", alias: "aanya", roles: ["student"], personId: "s1", active: true },
+      { id: "a2", name: "Priya Sharma", alias: "priya", roles: ["teacher", "parent"], personId: "t1", active: true },
+      { id: "a3", name: "Rohan Sharma", alias: "rohan", roles: ["parent"], personId: "p1", active: true },
+      { id: "a4", name: "Dr. Kavita Menon", alias: "kavita", roles: ["principal"], personId: "pr1", active: true },
+      { id: "a5", name: "Aditya Kapoor", alias: "aditya", roles: ["management"], personId: "m1", active: true },
+      { id: "a6", name: "Neha Desai", alias: "neha", roles: ["examination"], personId: "e1", active: true },
+      { id: "a7", name: "Dev Patel", alias: "dev", roles: ["admin"], personId: "ad1", active: true },
+      { id: "a8", name: "Rahul Verma", alias: "rahul", roles: ["teacher"], personId: "t2", active: true },
+      { id: "a9", name: "Meera Iyer", alias: "meera", roles: ["student"], personId: "s6", active: true },
+    ],
+    sections: [
+      { id: "10a", name: "10 A", mainTeacherId: "t1", room: "204" },
+      { id: "10b", name: "10 B", mainTeacherId: "t2", room: "205" },
+      { id: "9a", name: "9 A", mainTeacherId: "t3", room: "202" },
+      { id: "8b", name: "8 B", mainTeacherId: "t4", room: "108" },
+    ],
+    teachers: [
+      { id: "t1", name: "Priya Sharma", subjects: ["Mathematics"], sectionIds: ["10a", "10b", "8b"] },
+      { id: "t2", name: "Rahul Verma", subjects: ["Science", "Computer Science"], sectionIds: ["10a", "10b", "9a", "8b"] },
+      { id: "t3", name: "Anjali Nair", subjects: ["English"], sectionIds: ["10a", "9a", "8b"] },
+      { id: "t4", name: "Siddharth Rao", subjects: ["Social Science"], sectionIds: ["10a", "10b", "8b"] },
+      { id: "t5", name: "Kavya Joshi", subjects: ["Hindi"], sectionIds: ["10a", "10b", "9a", "8b"] },
+    ],
+    students: structuredClone(students),
+    parents: [{ id: "p1", name: "Rohan Sharma", childIds: ["s1", "s2"] }, { id: "t1", name: "Priya Sharma", childIds: ["s1", "s2"] }],
+    materials: subjects.map((subject, i) => ({ id: `mat${i + 1}`, subject, title: ["Quadratic equations, made simple", "Light: reflection & refraction", "The making of a scientist", "Resources & development", "Poetry: reading between the lines", "Your first Python program"][i], chapter: `Chapter ${[4, 10, 6, 1, 3, 2][i]}`, sectionId: "10a", teacherId: ["t1", "t2", "t3", "t4", "t5", "t2"][i], published: true, fileName: `${subject.toLowerCase().replaceAll(" ", "-")}-notes.pdf`, updated: "2026-11-16", version: 1, downloadable: true })),
+    assignments: [
+      { id: "as1", title: "A little practice with quadratics", subject: "Mathematics", sectionId: "10a", teacherId: "t1", due: "2026-11-18", description: "Solve questions 1–8 from Exercise 4.2. Show each step and verify your roots by substitution. Attach your working or write a short response.", priority: "High", total: 20, published: true },
+      { id: "as2", title: "Explore the world of light", subject: "Science", sectionId: "10a", teacherId: "t2", due: "2026-11-20", description: "Draw labelled ray diagrams for a concave mirror with the object beyond C, at C, and between C and F. Explain one everyday application.", priority: "Normal", total: 20, published: true },
+      { id: "as3", title: "Words that make a difference", subject: "English", sectionId: "10a", teacherId: "t3", due: "2026-11-21", description: "Write a 250-word reflection on curiosity and scientific discovery, drawing examples from the chapter.", priority: "Normal", total: 20, published: true },
+      { id: "as4", title: "Linear equations practice", subject: "Mathematics", sectionId: "8b", teacherId: "t1", due: "2026-11-19", description: "Solve five linear equations and explain how to check each answer.", priority: "Normal", total: 10, published: true },
+    ],
+    submissions: [{ id: "sub1", assignmentId: "as1", studentId: "s3", response: "I have solved the eight problems and verified the roots.", fileName: "arjun-practice.pdf", at: "2026-11-16T11:30:00", published: false }],
+    attendance: Array.from({ length: 12 }, (_, i) => `2026-11-${String(i + 2).padStart(2, "0")}`).filter(date => ![0, 6].includes(new Date(`${date}T12:00:00`).getDay())).flatMap((date, i) => students.map((student, j) => ({ studentId: student.id, date, status: (i === 3 && j === 0 ? "Absent" : i === 5 && j === 2 ? "Late" : "Present") as "Present" | "Absent" | "Late", markedBy: "t1" }))),
+    exams: [
+      { id: "ex1", name: "Unit test 3", subject: "Mathematics", sectionId: "10a", date: "2026-11-24", time: "09:00", room: "Hall A", total: 40, published: false, verified: false },
+      { id: "ex2", name: "Unit test 3", subject: "Science", sectionId: "10a", date: "2026-11-26", time: "09:00", room: "Hall A", total: 40, published: false, verified: false },
+      { id: "ex3", name: "Mid-term assessment", subject: "Mathematics", sectionId: "10a", date: "2026-10-14", time: "09:00", room: "204", total: 80, published: true, verified: true },
+      { id: "ex4", name: "Mid-term assessment", subject: "Science", sectionId: "10a", date: "2026-10-15", time: "09:00", room: "204", total: 80, published: true, verified: true },
+      { id: "ex5", name: "Mid-term assessment", subject: "English", sectionId: "10a", date: "2026-10-16", time: "09:00", room: "204", total: 80, published: true, verified: true },
+      { id: "ex6", name: "Mid-term assessment", subject: "Mathematics", sectionId: "8b", date: "2026-10-14", time: "09:00", room: "108", total: 80, published: true, verified: true },
+    ],
+    results: students.filter(s => s.sectionId === "10a").flatMap((s, i) => ["ex3", "ex4", "ex5"].map((examId, j) => ({ examId, studentId: s.id, marks: [72, 68, 74][j] - i * 3 }))).concat([{ examId: "ex6", studentId: "s2", marks: 66 }, { examId: "ex6", studentId: "s8", marks: 73 }]),
+    papers: [{ id: "pa1", examId: "ex1", teacherId: "t1", title: "Mathematics • Unit test 3", status: "Submitted", feedback: "", versions: [{ number: 1, date: "2026-11-16", fileName: "maths-unit-3-demo.pdf" }] }],
+    fees: students.flatMap(s => [
+      { id: `fee-${s.id}-1`, studentId: s.id, title: "Tuition • Term 2", amount: 24000, paid: s.id === "s1" ? 12000 : 24000, discount: 0, due: "2026-11-25" },
+      { id: `fee-${s.id}-2`, studentId: s.id, title: "Activity & resource fee", amount: 3500, paid: 3500, discount: 0, due: "2026-10-15" },
+    ]),
+    payments: [{ id: "pay1", feeId: "fee-s1-1", amount: 12000, at: "2026-10-01T10:00:00", method: "Demo bank transfer", by: "m1" }, { id: "pay2", feeId: "fee-s1-2", amount: 3500, at: "2026-10-12T10:00:00", method: "Demo UPI", by: "p1" }],
+    expenses: [
+      { id: "cost1", title: "November teaching salaries", category: "Salaries", amount: 185000, date: "2026-11-30", status: "Pending", vendor: "Payroll demo" },
+      { id: "cost2", title: "Classroom furniture maintenance", category: "Maintenance", amount: 18500, date: "2026-11-12", status: "Paid", vendor: "Maple Services (fictional)" },
+      { id: "cost3", title: "Electricity & water", category: "Utilities", amount: 12600, date: "2026-11-15", status: "Paid", vendor: "Demo utilities" },
+      { id: "cost4", title: "Campus broadband", category: "Internet", amount: 4500, date: "2026-11-18", status: "Pending", vendor: "Demo Connect" },
+    ],
+    notices: [
+      { id: "n1", title: "A day for big ideas", body: "The annual Science & Innovation Fair is on 28 November. Bring your curiosity, work with a friend, and share an idea that could make a difference. Register in Events by 24 November.", audience: ["student", "teacher", "parent", "principal", "management", "examination", "admin"], date: "2026-11-16", author: "Dr. Kavita Menon", pinned: true },
+      { id: "n2", title: "Let's talk about your child's progress", body: "Parent–teacher meetings will be held on 21 November. Parents can reserve a 15-minute appointment from the Meetings page.", audience: ["student", "parent", "teacher", "principal"], date: "2026-11-15", author: "School office", pinned: false },
+    ],
+    events: [
+      { id: "ev1", title: "Science & Innovation Fair", date: "2026-11-28", time: "09:30", location: "School auditorium", category: "Explore", capacity: 40, registered: ["s3", "s4"] },
+      { id: "ev2", title: "Inter-house football", date: "2026-11-22", time: "14:00", location: "Sports ground", category: "Sports", capacity: 24, registered: ["s1", "s5"] },
+      { id: "ev3", title: "The reading circle", date: "2026-11-20", time: "13:45", location: "Library", category: "Clubs", capacity: 16, registered: [] },
+    ],
+    goals: [{ id: "g1", studentId: "s1", title: "Practise five quadratic equations", complete: false, due: "2026-11-18" }, { id: "g2", studentId: "s1", title: "Read one chapter for pleasure", complete: true, due: "2026-11-16" }],
+    achievements: [{ id: "ac1", studentId: "s1", title: "Young innovator", category: "Competition", date: "2026-09-12", description: "Designed a rainwater harvesting model for the class science exhibition.", verified: true }, { id: "ac2", studentId: "s1", title: "Cedar house volunteer", category: "Leadership", date: "2026-10-08", description: "Helped organise the school reading week.", verified: true }],
+    xpEntries: [{ id: "xp1", studentId: "s1", activity: "Learning challenge", amount: 30, date: "2026-11-16" }, { id: "xp2", studentId: "s1", activity: "Thoughtful practice", amount: 15, date: "2026-11-14" }],
+    messages: [{ id: "msg1", from: "t1", to: "p1", body: "Aanya is making lovely progress with algebra. Let's discuss some enrichment activities at our next meeting.", at: "2026-11-16T10:30:00" }],
+    meetings: [], leaves: [],
+    workflows: [
+      { id: "w1", kind: "lesson-plans", title: "Quadratic equations", detail: "Factorisation and the quadratic formula. 6 of 8 lessons complete.", owner: "t1", status: "In progress", date: "2026-11-20" },
+      { id: "w2", kind: "admissions", title: "Aarav Sethi • Class 8", detail: "Fictional application. Documents received; interview to be scheduled.", owner: "m1", status: "Pending", date: "2026-11-20" },
+      { id: "w3", kind: "inventory", title: "Science lab microscopes", detail: "12 units • 10 available • 2 under maintenance", owner: "m1", status: "In progress", date: "2026-11-26" },
+      { id: "w4", kind: "documents", title: "Academic calendar 2026–27", detail: "School office • approved working copy • sample document", owner: "pr1", status: "Complete", date: "2026-11-01" },
+      { id: "w5", kind: "compliance", title: "Review board affiliation documents", detail: "Administrative checklist only. Verify current requirements with your board; no automatic compliance certification.", owner: "pr1", status: "Pending", date: "2026-12-01" },
+      { id: "w6", kind: "compliance", title: "Update safety drill register", detail: "Collect the drill record and supporting documents from the school office.", owner: "pr1", status: "In progress", date: "2026-11-25" },
+      { id: "w7", kind: "tasks", title: "Prepare science fair timetable", detail: "Coordinate room availability and staff duties.", owner: "t2", status: "In progress", date: "2026-11-23" },
+      { id: "w8", kind: "seating", title: "Unit test 3 • Hall A", detail: "10 A: rolls 1–15, rows A–C • 10 B: rolls 16–30, rows D–F. Demo seating plan.", owner: "e1", status: "Draft", date: "2026-11-24" },
+      { id: "w9", kind: "invigilation", title: "Hall A • Mathematics", detail: "Anjali Nair • 08:45–10:00 • reserve: Kavya Joshi", owner: "e1", status: "Confirmed", date: "2026-11-24" },
+      { id: "w10", kind: "purchases", title: "Library reading corner", detail: "Purchase request for 20 books and two floor cushions.", owner: "m1", status: "Pending", amount: 8500, date: "2026-11-22" },
+    ],
+    audit: [{ id: "log1", actor: "System", action: "Demo initialised", detail: "All people and financial records are fictional.", at: "2026-11-17T08:00:00" }],
+    bookmarks: {}, checkIns: [], emailDrafts: [],
+    settings: { schoolName: "The Maplewood School", board: "CBSE", year: "2026–27", rankings: false, gamification: true, notifications: true, xp: { assignment: 20, quiz: 15, challenge: 30, competition: 40, goal: 25 }, lateFee: 0, scholarship: 0, notificationTemplate: "Hello {name}, a new update is available in your Schoolify workspace.", },
+  };
+}
